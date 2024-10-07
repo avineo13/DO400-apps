@@ -3,10 +3,14 @@ pipeline{
         label "nodejs"
     }
     stages{
+        stage('Switch to project dir'){
+            steps{
+                sh "cd greeting-service"
+            }
+        }
+
         stage("Install dependencies"){
             steps{
-                sh "pwd"
-                sh "ls -lahrt"
                 sh "npm ci"
             }
         }

@@ -31,6 +31,21 @@ pipeline {
             }
         }
 
+        stage('Security Scan') {
+            steps {
+                dir('shopping-cart') {
+                    sh """
+                        oc process -f kubefiles/security-scan-template.yml \
+                        -n ${APP_NAMESPACE}
+                        -p PROJECT_NAME=${APP_NAMESPACE} \
+                        -p CVE_CODE=CVE-2020-14583 \
+                        | oc apply -n ${APP_NAMESPACE} --force -f -
+                    """
+                    sh "! ...tools/check-jpb-state.sh security-scans-trivy -n ${APP_NAMESPACE}"
+                }
+            }
+        }
+
         stage('Deploy') {
             steps {
                 dir('shopping-cart') {

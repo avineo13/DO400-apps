@@ -41,7 +41,7 @@ pipeline {
                         -p CVE_CODE=CVE-2020-14583 \
                         | oc apply -n ${APP_NAMESPACE} --force -f -
                     """
-                    sh "! ...tools/check-jpb-state.sh security-scans-trivy -n ${APP_NAMESPACE}"
+                    sh "! ../tools/check-job-state.sh security-scans-trivy -n ${APP_NAMESPACE}"
                 }
             }
         }

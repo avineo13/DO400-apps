@@ -36,7 +36,7 @@ pipeline {
                 dir('shopping-cart') {
                     sh """
                         oc process -f kubefiles/security-scan-template.yml \
-                        -n ${APP_NAMESPACE}
+                        -n ${APP_NAMESPACE} \
                         -p PROJECT_NAME=${APP_NAMESPACE} \
                         -p CVE_CODE=CVE-2020-14583 \
                         | oc apply -n ${APP_NAMESPACE} --force -f -

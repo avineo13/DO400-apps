@@ -39,7 +39,7 @@ pipeline {
                         -n ${APP_NAMESPACE} \
                         -p PROJECT_NAME=${APP_NAMESPACE} \
                         -p CVE_CODE=CVE-2020-14583 \
-                        | oc apply -n ${APP_NAMESPACE} --force -f -
+                        | oc replace -n ${APP_NAMESPACE} --force -f -
                     """
                     sh "! ../tools/check-job-state.sh security-scans-trivy ${APP_NAMESPACE}"
                 }

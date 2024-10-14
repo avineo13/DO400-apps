@@ -82,7 +82,7 @@ pipeline {
                             )
 
                             if (status != 0) {
-                                error('Tag not found in quay.')
+                                error('Tag ${TAG_TO_DEPLOY} not found in quay.')
                             }
 
                         }

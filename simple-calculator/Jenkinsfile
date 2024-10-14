@@ -36,7 +36,7 @@ pipeline {
                             sh './mvnw clean checkstyle:check'
                         } catch (Exception e) {
                             sendStageNotification('failed', 'devs@example.com')
-                            unstable("Stage ${STAGE} failed!")
+                            unstable("Stage ${STAGE_NAME} failed!")
                         }
                     }
                 }

@@ -87,14 +87,15 @@ pipeline {
 
                         }
                         
+                        sh '''
+                                ./scripts/deploy-image.sh \
+                                    -n ${APP_NAMESPACE} \
+                                    -u ${QUAY_USR} \
+                                    -t ${tagToDeploy}
+                            '''
+                        
                     }
-
-                    sh '''
-                        ./scripts/deploy-image.sh \
-                            -n ${APP_NAMESPACE} \
-                            -u ${QUAY_USR} \
-                            -t ${tagToDeploy}
-                    '''
+        
                 }
             }
         }

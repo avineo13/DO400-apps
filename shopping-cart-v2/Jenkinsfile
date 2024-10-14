@@ -90,7 +90,7 @@ pipeline {
                     }
 
                     sh '''
-                        ./scripts/deploy_image.sh \
+                        ./scripts/deploy-image.sh \
                             -n ${APP_NAMESPACE} \
                             -u ${QUAY_USR} \
                             -t ${tagToDeploy}

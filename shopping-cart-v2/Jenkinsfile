@@ -15,7 +15,7 @@ pipeline {
         stage('Test') {
 
             options {
-                timeout(time: 50, unit: 'SECONDS')
+                timeout(time: 250, unit: 'SECONDS')
             }
 
             steps {

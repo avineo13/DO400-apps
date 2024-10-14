@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 sendNotification('started', 'team@example.com')
-                git branch: 'notifications',
+                git branch: 'solutions',
                     url: 'https://github.com/avineo13/DO400-apps'
             }
         }

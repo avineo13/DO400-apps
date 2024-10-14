@@ -67,6 +67,6 @@ void sendNotification(String action, String email) {
 
 void sendStageNotification(String action, String email) {
     mail to: "${email}",
-        subject: "${STAGE} ${action}, ${currentBuild.fullDisplayName}",
-        body: "The stage ${STAGE} ${action}: ${env.BUILD_URL}"
+        subject: "${STAGE_NAME} ${action}, ${currentBuild.fullDisplayName}",
+        body: "The stage ${STAGE_NAME} ${action}: ${env.BUILD_URL}"
 }

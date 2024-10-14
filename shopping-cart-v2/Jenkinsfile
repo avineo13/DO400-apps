@@ -82,17 +82,17 @@ pipeline {
                             )
 
                             if (status != 0) {
-                                error('Tag ${TAG_TO_DEPLOY} not found in quay.')
+                                error("Tag ${TAG_TO_DEPLOY} not found in quay.")
                             }
 
                         }
                         
-                        sh '''
+                        sh """
                                 ./scripts/deploy-image.sh \
                                     -n ${APP_NAMESPACE} \
                                     -u ${QUAY_USR} \
                                     -t ${TAG_TO_DEPLOY}
-                            '''
+                            """
                         
                     }
         

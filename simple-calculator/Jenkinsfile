@@ -1,0 +1,31 @@
+pipeline {
+
+    agent {
+        node {
+            label 'maven'
+        }
+    }
+
+    options {
+        skipDefaultCheckout true
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'notifications',
+                    url: 'https://github.com/avineo13/DO400-apps'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('simple-calculator') {
+                    sh './mvnw clean test'
+                }
+            }
+        }
+
+    }
+}

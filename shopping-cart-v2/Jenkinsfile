@@ -10,12 +10,22 @@ pipeline {
         APP_NAMESPACE = 'qzjkdo-recover'
     }
 
+    parameters {
+        string(name: 'DEPLOY_TAG', description: 'Deploy Tag')
+    }
+
     stages {
 
         stage('Test') {
 
             options {
                 timeout(time: 250, unit: 'SECONDS')
+            }
+
+            when {
+                expression {
+                    params.DEPLOY_TAG == ''
+                }
             }
 
             steps {
@@ -29,6 +39,12 @@ pipeline {
 
             environment {
                 QUAY = credentials('QUAY_USER')
+            }
+
+            when {
+                expression {
+                    params.DEPLOY_TAG == ''
+                }
             }
 
             steps {
@@ -53,17 +69,32 @@ pipeline {
             steps {
                 dir('shopping-cart-v2') {
                     script {
-                        def status = sh(
-                            script: './scripts/tag-exists-in-quay.sh ${QUAY_USR}/do400-recover latest',
-                            returnStatus: true
-                        )
 
-                        if (status != 0) {
-                            error('Tag not found in quay.')
+                        def tagToDeploy = 'BUILD-${BUILD_NUMBER}'
+
+                        if (params.DEPLOY_TAG != null && params.DEPLOY_TAG != '') {
+
+                            tagToDeploy = params.DEPLOY_TAG
+
+                            def status = sh(
+                                script: './scripts/tag-exists-in-quay.sh ${QUAY_USR}/do400-recover ${tagToDeploy}',
+                                returnStatus: true
+                            )
+
+                            if (status != 0) {
+                                error('Tag not found in quay.')
+                            }
+
                         }
+                        
                     }
 
-                    sh './scripts/redeploy.sh ${APP_NAMESPACE}'
+                    sh '''
+                        ./scripts/deploy_image.sh \
+                            -n ${APP_NAMESPACE} \
+                            -u ${QUAY_USR} \
+                            -t ${tagToDeploy}
+                    '''
                 }
             }
         }

@@ -70,14 +70,14 @@ pipeline {
                 dir('shopping-cart-v2') {
                     script {
 
-                        def tagToDeploy = 'BUILD-${BUILD_NUMBER}'
+                        def TAG_TO_DEPLOY = 'BUILD-${BUILD_NUMBER}'
 
                         if (params.DEPLOY_TAG != null && params.DEPLOY_TAG != '') {
 
-                            tagToDeploy = params.DEPLOY_TAG
+                            TAG_TO_DEPLOY = params.DEPLOY_TAG
 
                             def status = sh(
-                                script: './scripts/tag-exists-in-quay.sh ${QUAY_USR}/do400-recover ${tagToDeploy}',
+                                script: './scripts/tag-exists-in-quay.sh ${QUAY_USR}/do400-recover ${TAG_TO_DEPLOY}',
                                 returnStatus: true
                             )
 
@@ -91,7 +91,7 @@ pipeline {
                                 ./scripts/deploy-image.sh \
                                     -n ${APP_NAMESPACE} \
                                     -u ${QUAY_USR} \
-                                    -t ${tagToDeploy}
+                                    -t ${TAG_TO_DEPLOY}
                             '''
                         
                     }

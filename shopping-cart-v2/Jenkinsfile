@@ -77,7 +77,7 @@ pipeline {
                             TAG_TO_DEPLOY = params.DEPLOY_TAG
 
                             def status = sh(
-                                script: './scripts/tag-exists-in-quay.sh ${QUAY_USR}/do400-recover ${TAG_TO_DEPLOY}',
+                                script: "./scripts/tag-exists-in-quay.sh ${QUAY_USR}/do400-recover ${TAG_TO_DEPLOY}",
                                 returnStatus: true
                             )
 

@@ -1,0 +1,25 @@
+pipeline {
+
+    agent {
+        node {
+            label 'maven'
+        }
+    }
+
+    environment {
+        APP_NAMESPACE = 'qzjkdo-recover'
+    }
+
+    stages {
+
+        stage('Test') {
+            steps {
+                dir('shopping-cart-v2') {
+                    sh './mvnw clean test'
+                }
+            }
+        }
+
+    }
+
+}
